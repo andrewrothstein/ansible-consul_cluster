@@ -1,0 +1,34 @@
+---
+- name: create consul group
+  become: yes
+  become_user: root
+  group: name=consul state=present
+  
+- name: create consul user
+  become: yes
+  become_user: root
+  user: >-
+    name=consul
+    group=consul
+    home={{consul_agent_data_dir}}
+    state=present
+    
+- name: create directories
+  become: yes
+  become_user: consul
+  file: >-
+    path={{item}}
+    state=directory
+  with_items:
+    - '{{consul_agent_etc_dir}}'
+    - '{{consul_agent_data_dir}}'
+
+- name: configure templates...
+  become: yes
+  become_user: consul
+  template: >-
+    src=etc/consul.d/{{consul_agent_template}}.j2
+    dest={{consul_agent_etc_dir}}/consul.json
+    mode=0644
+
+- include: '{{consul_agent_init}}.yml'
