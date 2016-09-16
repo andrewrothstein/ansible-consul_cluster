@@ -16,5 +16,8 @@ galaxy_info:
   galaxy_tags:
     - development
 
-dependencies: []
+dependencies:
+  - role: andrewrothstein.consul
+    version: v3.0.0
+
   
