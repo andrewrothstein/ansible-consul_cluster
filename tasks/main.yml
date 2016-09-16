@@ -15,10 +15,13 @@
     
 - name: create directories
   become: yes
-  become_user: consul
+  become_user: root
   file: >-
     path={{item}}
     state=directory
+    owner=consul
+    group=consul
+    mode=0755
   with_items:
     - '{{consul_agent_etc_dir}}'
     - '{{consul_agent_data_dir}}'
