@@ -4,3 +4,17 @@ consul_agent_advertise_addr : "{{ hostvars[inventory_hostname]['ansible_' + host
 consul_agent_template : "{% if inventory_hostname in groups[consul_agent_server_group_name] %}server.json{% else %}client.json{% endif %}"
 
 consul_agent_retry_join: "{% for peer in groups[consul_agent_server_group_name] %}{{hostvars[peer]['ansible_' + hostvars[peer]['consul_agent_network_iface']]['ipv4']['address'] | to_json}}{% if not loop.last %},{% endif %}{% endfor %}"
+
+consul_agent_pki_key_file : '{{inventory_hostname}}{{consul_agent_pki_key_suffix}}'
+consul_agent_pki_key_src: '{{consul_agent_pki_dir}}/{{consul_agent_pki_key_file}}'
+consul_agent_pki_key_dest : '{{consul_agent_etc_pki_dir}}/{{consul_agent_pki_key_file}}'
+
+consul_agent_pki_cert_file : '{{inventory_hostname}}{{consul_agent_pki_cert_suffix}}'
+consul_agent_pki_cert_src: '{{consul_agent_pki_dir}}/{{consul_agent_pki_cert_file}}'
+consul_agent_pki_cert_dest : '{{consul_agent_etc_pki_dir}}/{{consul_agent_pki_cert_file}}'
+
+consul_agent_pki_ca_file : 'ca{{consul_agent_pki_cert_suffix}}'
+consul_agent_pki_ca_cert_src: '{{consul_agent_pki_dir}}/{{consul_agent_pki_ca_file}}'
+consul_agent_pki_ca_cert_dest : '{{consul_agent_etc_pki_dir}}/{{consul_agent_pki_ca_file}}'
+
+consul_agent_secure_config: '{% if consul_agent_secure %}"ca_file" : {{consul_agent_pki_ca_cert_dest|to_json}},"cert_file" : {{consul_agent_pki_cert_dest|to_json}},"key_file" : {{consul_agent_pki_key_dest|to_json}},"verify_incoming" : true,"verify_outgoing" : true{% endif %}'

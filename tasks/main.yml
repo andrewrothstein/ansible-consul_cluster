@@ -16,15 +16,31 @@
 - name: create directories
   become: yes
   become_user: root
+  with_items:
+    - { d: '{{consul_agent_etc_dir}}', m: '0755' }
+    - { d: '{{consul_agent_data_dir}}', m: '0755' }
+    - { d: '{{consul_agent_etc_pki_dir}}', m: '0700' }
   file: >-
-    path={{item}}
+    path={{item.d}}
     state=directory
     owner=consul
     group=consul
-    mode=0755
+    mode={{item.m}}
+
+- name: install keys/certs
+  when: consul_agent_secure
+  become: yes
+  become_user: root
   with_items:
-    - '{{consul_agent_etc_dir}}'
-    - '{{consul_agent_data_dir}}'
+    - { f: '{{consul_agent_pki_key_src}}', d: '{{consul_agent_pki_key_dest}}', m: '0400' }
+    - { f: '{{consul_agent_pki_cert_src}}', d: '{{consul_agent_pki_cert_dest}}', m: '0600'}
+    - { f: '{{consul_agent_pki_ca_cert_src}}', d: '{{consul_agent_pki_ca_cert_dest}}', m: '0600' }
+  copy: >-
+    src={{item.f}}
+    dest={{item.d}}
+    owner=consul
+    group=consul
+    mode={{item.m}}
 
 - name: configure templates...
   become: yes

@@ -17,5 +17,6 @@
 {% elif ansible_dns.nameservers is defined %}
    "recursors" : {{ansible_dns.nameservers | to_json}},
 {% endif %}
+{% if consul_agent_secure %}{{consul_agent_secure_config}},{% endif %}
    "ui" : {{consul_agent_enable_ui | to_json}}
 }

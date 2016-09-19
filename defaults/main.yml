@@ -2,7 +2,8 @@
 consul_agent_group_name: consul
 consul_agent_server_group_name: consul-agent-server
 
-consul_agent_etc_dir : /etc/consul.d
+consul_agent_etc_dir : /etc/consul/consul.d
+consul_agent_etc_pki_dir: /etc/consul/pki
 consul_agent_data_dir : /var/consul
 
 consul_agent_network_iface : 'eth0'
@@ -28,3 +29,9 @@ consul_agent_enable_ui : True
 
 consul_agent_init: systemd
 consul_agent_launch: True
+
+consul_agent_secure: False
+consul_agent_pki_dir: '~/pki-dir'
+consul_agent_pki_key_suffix: '-key.pem'
+consul_agent_pki_cert_suffix: '.pem'
+
