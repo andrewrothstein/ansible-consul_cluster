@@ -4,7 +4,7 @@ After=network.service
 Requires=network.service
 
 [Service]
-User=consul
+User={{consul_agent_user}}
 ExecStart=/usr/local/bin/consul agent -config-dir {{consul_agent_etc_dir}}
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=INT

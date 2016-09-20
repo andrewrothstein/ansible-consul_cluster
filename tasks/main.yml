@@ -2,14 +2,14 @@
 - name: create consul group
   become: yes
   become_user: root
-  group: name=consul state=present
+  group: name={{consul_agent_group}} state=present
   
 - name: create consul user
   become: yes
   become_user: root
   user: >-
-    name=consul
-    group=consul
+    name={{consul_agent_user}}
+    group={{consul_agent_group}}
     home={{consul_agent_data_dir}}
     state=present
     
@@ -23,8 +23,8 @@
   file: >-
     path={{item.d}}
     state=directory
-    owner=consul
-    group=consul
+    owner={{consul_agent_user}}
+    group={{consul_agent_group}}
     mode={{item.m}}
 
 - name: install keys/certs
@@ -38,13 +38,13 @@
   copy: >-
     src={{item.f}}
     dest={{item.d}}
-    owner=consul
-    group=consul
+    owner={{consul_agent_user}}
+    group={{consul_agent_group}}
     mode={{item.m}}
 
 - name: configure templates...
   become: yes
-  become_user: consul
+  become_user: '{{consul_agent_user}}'
   template: >-
     src=etc/consul.d/{{consul_agent_template}}.j2
     dest={{consul_agent_etc_dir}}/consul.json
