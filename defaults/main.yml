@@ -10,6 +10,7 @@ consul_agent_network_iface : 'eth0'
 consul_agent_bind_addr : '0.0.0.0'
 consul_agent_dns_port : 8600
 consul_agent_http_port : 8500
+consul_agent_https_port : 8501
 
 consul_agent_user: consul
 consul_agent_group: consul
