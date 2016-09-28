@@ -10,6 +10,7 @@
     "ports" : {
 	"dns" : {{consul_agent_dns_port | to_json}},
 	"http" : {{consul_agent_http_port | to_json}}
+	{{consul_agent_https_config}}
     },
 {% if consul_agent_recursors is defined %}
    "recursors" : {{consul_agent_recursors | to_json}},
