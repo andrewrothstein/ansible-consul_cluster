@@ -19,10 +19,6 @@ consul_agent_dc : dc1
 
 consul_agent_encrypt : 'EYRY+Ks0+i/DZrEicth1tQ=='
 
-# how many servers constitute the cluster?
-# only start accepting writes when this many acknowledgements are achieved
-consul_agent_bootstrap_expect: 7
-
 consul_agent_enable_syslog : True
 consul_agent_enable_ui : True
 
