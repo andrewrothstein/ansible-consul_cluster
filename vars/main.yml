@@ -23,4 +23,4 @@ consul_agent_secure_config: '{% if consul_agent_secure %}"ca_file" : {{consul_ag
 
 # how many servers constitute the cluster?
 # only start accepting writes when this many acknowledgements are achieved
-consul_agent_bootstrap_expect: "{{ (groups[consul_agent_server_group_name]|length / 2) | round(0, 'ceil') + 1 }}"
+consul_agent_bootstrap_expect: "{{ (groups[consul_agent_server_group_name]|length / 2) | round(0, 'floor') + 1 }}"
