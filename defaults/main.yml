@@ -35,3 +35,9 @@ consul_agent_pki_dir: '~/pki-dir'
 consul_agent_pki_key_suffix: '-key.pem'
 consul_agent_pki_cert_suffix: '.pem'
 
+consul_agent_acl_default_policy: allow
+consul_agent_acl_down_policy: extend-cache
+consul_agent_acl_datacenter: dc1
+consul_agent_acl_master_token: afadd880-add1-11e6-82f6-1bb51467000c
+consul_agent_acl_replication_token: 5db1ef24-add3-11e6-8931-ab75ea0c2735
+consul_agent_acl_ttl: 30

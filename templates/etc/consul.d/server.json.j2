@@ -13,11 +13,14 @@
 	"http" : {{consul_agent_http_port | to_json}}
 	{{consul_agent_https_config}}
     },
-{% if consul_agent_recursors is defined %}
-   "recursors" : {{consul_agent_recursors | to_json}},
-{% elif ansible_dns.nameservers is defined %}
-   "recursors" : {{ansible_dns.nameservers | to_json}},
-{% endif %}
-{% if consul_agent_secure %}{{consul_agent_secure_config}},{% endif %}
    "ui" : {{consul_agent_enable_ui | to_json}}
+{% if consul_agent_recursors is defined %}
+   , "recursors" : {{consul_agent_recursors | to_json}}
+{% elif ansible_dns.nameservers is defined %}
+   , "recursors" : {{ansible_dns.nameservers | to_json}}
+{% endif %}
+{% if consul_agent_secure %},{{consul_agent_secure_config}}{% endif %}
+{% if consul_agent_acl_master_token is defined %}
+   , "acl_master_token" : {{consul_agent_acl_master_token | to_json}}
+{% endif %}
 }
