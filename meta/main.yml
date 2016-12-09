@@ -9,15 +9,17 @@ galaxy_info:
   platforms:
     - name: EL
       versions:
-        - 7
+        - all
     - name: Fedora
       versions:
-        - 23
+        - all
   galaxy_tags:
-    - development
+    - consul
+    - hashicorp
+    - keyvalue
 
 dependencies:
   - role: andrewrothstein.consul
-    version: v3.0.0
+    version: v3.0.2
 
   
