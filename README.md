@@ -3,8 +3,8 @@ andrewrothstein.consul-cluster
 
 Role for configuring a Consul cluster. Relies principally on the existence of two host groups.
 
-consul: all hosts that participate in the cluster whether server or client.
-consul-agent-server: all hosts that participate in the RAFT as servers.
+1. consul: all hosts that participate in the cluster whether server or client.
+2. consul-agent-server: all hosts that participate in the RAFT as servers.
 
 Requirements
 ------------
