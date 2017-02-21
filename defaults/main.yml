@@ -6,7 +6,7 @@ consul_agent_etc_dir : /etc/consul/consul.d
 consul_agent_etc_pki_dir: /etc/consul/pki
 consul_agent_data_dir : /var/consul
 
-consul_agent_network_iface : 'eth0'
+consul_agent_network_iface : eth0
 consul_agent_bind_addr : '0.0.0.0'
 consul_agent_dns_port : 8600
 consul_agent_http_port : 8500
@@ -28,12 +28,12 @@ consul_agent_enable_ui : True
 #  - bbb.ccc.ddd.eee
 
 consul_agent_init: systemd
-consul_agent_launch: True
+consul_agent_activate: True
 
-consul_agent_secure: False
-consul_agent_pki_dir: '~/pki-dir'
-consul_agent_pki_key_suffix: '-key.pem'
-consul_agent_pki_cert_suffix: '.pem'
+consul_agent_secure: True
+consul_agent_pki_dir: ~/pki-dir
+consul_agent_pki_key_suffix: -key.pem
+consul_agent_pki_cert_suffix: .pem
 
 consul_agent_acl_default_policy: allow
 consul_agent_acl_down_policy: extend-cache

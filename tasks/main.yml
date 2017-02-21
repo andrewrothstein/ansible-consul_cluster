@@ -2,52 +2,65 @@
 - name: create consul group
   become: yes
   become_user: root
-  group: name={{consul_agent_group}} state=present
+  group:
+    name: '{{consul_agent_group}}'
+    state: present
   
 - name: create consul user
   become: yes
   become_user: root
-  user: >-
-    name={{consul_agent_user}}
-    group={{consul_agent_group}}
-    home={{consul_agent_data_dir}}
-    state=present
+  user:
+    name: '{{consul_agent_user}}'
+    group: '{{consul_agent_group}}'
+    home: '{{consul_agent_data_dir}}'
+    state: present
     
 - name: create directories
   become: yes
   become_user: root
   with_items:
-    - { d: '{{consul_agent_etc_dir}}', m: '0755' }
-    - { d: '{{consul_agent_data_dir}}', m: '0755' }
-    - { d: '{{consul_agent_etc_pki_dir}}', m: '0700' }
-  file: >-
-    path={{item.d}}
-    state=directory
-    owner={{consul_agent_user}}
-    group={{consul_agent_group}}
-    mode={{item.m}}
+    - d: '{{consul_agent_etc_dir}}'
+      m: 0755
+    - d: '{{consul_agent_data_dir}}'
+      m: 0755
+    - d: '{{consul_agent_etc_pki_dir}}'
+      m: 0700
+  file:
+    path: '{{item.d}}'
+    state: directory
+    owner: '{{consul_agent_user}}'
+    group: '{{consul_agent_group}}'
+    mode: '{{item.m}}'
 
 - name: install keys/certs
   when: consul_agent_secure
   become: yes
   become_user: root
   with_items:
-    - { f: '{{consul_agent_pki_key_src}}', d: '{{consul_agent_pki_key_dest}}', m: '0400' }
-    - { f: '{{consul_agent_pki_cert_src}}', d: '{{consul_agent_pki_cert_dest}}', m: '0600'}
-    - { f: '{{consul_agent_pki_ca_cert_src}}', d: '{{consul_agent_pki_ca_cert_dest}}', m: '0600' }
-  copy: >-
-    src={{item.f}}
-    dest={{item.d}}
-    owner={{consul_agent_user}}
-    group={{consul_agent_group}}
-    mode={{item.m}}
+    - f: '{{consul_agent_pki_key_src}}'
+      d: '{{consul_agent_pki_key_dest}}'
+      m: 0400
+    - f: '{{consul_agent_pki_cert_src}}'
+      d: '{{consul_agent_pki_cert_dest}}'
+      m: 0600
+    - f: '{{consul_agent_pki_ca_cert_src}}'
+      d: '{{consul_agent_pki_ca_cert_dest}}'
+      m: 0600
+  copy:
+    src: '{{item.f}}'
+    dest: '{{item.d}}'
+    owner: '{{consul_agent_user}}'
+    group: '{{consul_agent_group}}'
+    mode: '{{item.m}}'
 
 - name: configure templates...
   become: yes
-  become_user: '{{consul_agent_user}}'
-  template: >-
-    src=etc/consul.d/{{consul_agent_template}}.j2
-    dest={{consul_agent_etc_dir}}/consul.json
-    mode=0644
+  become_user: root
+  template:
+    src: etc/consul.d/{{consul_agent_template}}.j2
+    dest: '{{consul_agent_etc_dir}}/consul.json'
+    owner: '{{consul_agent_user}}'
+    group: '{{consul_agent_group}}'
+    mode: 0644
 
 - include: '{{consul_agent_init}}.yml'
