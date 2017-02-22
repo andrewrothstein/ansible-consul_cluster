@@ -13,13 +13,13 @@
 - name: systemctl daemon-reload
   become: yes
   become_user: root
-  when: consul_active and consul_service_modified|changed
+  when: consul_agent_activate and consul_service_modified|changed
   command: systemctl daemon-reload
     
 - name: launch consul service
   become: yes
   become_user: root
-  when: consul_activate
+  when: consul_agent_activate
   service:
     name: consul
     enabled: true

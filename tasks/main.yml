@@ -20,11 +20,11 @@
   become_user: root
   with_items:
     - d: '{{consul_agent_etc_dir}}'
-      m: 0755
+      m: '0755'
     - d: '{{consul_agent_data_dir}}'
-      m: 0755
+      m: '0755'
     - d: '{{consul_agent_etc_pki_dir}}'
-      m: 0700
+      m: '0700'
   file:
     path: '{{item.d}}'
     state: directory
@@ -39,13 +39,13 @@
   with_items:
     - f: '{{consul_agent_pki_key_src}}'
       d: '{{consul_agent_pki_key_dest}}'
-      m: 0400
+      m: '0400'
     - f: '{{consul_agent_pki_cert_src}}'
       d: '{{consul_agent_pki_cert_dest}}'
-      m: 0600
+      m: '0600'
     - f: '{{consul_agent_pki_ca_cert_src}}'
       d: '{{consul_agent_pki_ca_cert_dest}}'
-      m: 0600
+      m: '0600'
   copy:
     src: '{{item.f}}'
     dest: '{{item.d}}'
