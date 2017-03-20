@@ -5,7 +5,7 @@
   register: consul_service_modified
   with_items:
     - f: consul.service
-      d: /usr/lib/systemd/system
+      d: /etc/systemd/system
   template:
     src: '{{item.f}}.j2'
     dest: '{{item.d}}/{{item.f}}'
