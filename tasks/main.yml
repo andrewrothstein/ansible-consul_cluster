@@ -57,7 +57,7 @@
   become: yes
   become_user: root
   template:
-    src: etc/consul.d/{{consul_agent_template}}.j2
+    src: '{{consul_agent_template}}.j2'
     dest: '{{consul_agent_etc_dir}}/consul.json'
     owner: '{{consul_agent_user}}'
     group: '{{consul_agent_group}}'
