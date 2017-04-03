@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/andrewrothstein/ansible-consul-cluster.svg?style=svg)](https://circleci.com/gh/andrewrothstein/ansible-consul-cluster)
 andrewrothstein.consul-cluster
 ==============================
 
