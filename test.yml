@@ -3,4 +3,4 @@
   roles:
     - role: '{{playbook_dir}}'
       consul_agent_activate: False
-      consul_agent_pki_dir: '{{playbook_dir}}'
+      consul_agent_pki_dir: '{{playbook_dir}}/test-pki'

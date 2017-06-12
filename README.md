@@ -1,6 +1,6 @@
-[![CircleCI](https://circleci.com/gh/andrewrothstein/ansible-consul-cluster.svg?style=svg)](https://circleci.com/gh/andrewrothstein/ansible-consul-cluster)
 andrewrothstein.consul-cluster
 ==============================
+[![Build Status](https://travis-ci.org/andrewrothstein/ansible-consul-cluster.svg?branch=master)](https://travis-ci.org/andrewrothstein/ansible-consul-cluster)
 
 Role for configuring a [Consul](https://www.consul.io/) cluster. Relies principally on the existence of two host groups.
 
@@ -25,8 +25,10 @@ See [meta/main.yml](meta/main.yml)
 Example Playbook
 ----------------
 
-inventory.ini
+example inventory.ini
 ```ini
+host[1:10].test
+
 [consul]
 host[1:10].test
 
