@@ -63,4 +63,4 @@
     group: '{{consul_agent_group}}'
     mode: 0644
 
-- include: '{{consul_agent_init}}.yml'
+- include_tasks: '{{consul_agent_init}}.yml'
