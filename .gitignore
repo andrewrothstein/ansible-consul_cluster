@@ -2,3 +2,4 @@
 *.retry
 .ansible-roles/
 Dockerfile.*
+requirements.yml
