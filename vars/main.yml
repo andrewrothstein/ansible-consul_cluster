@@ -1,9 +1,9 @@
 ---
-consul_agent_advertise_addr : "{% if consul_agent_use_ip %}{{ hostvars[inventory_hostname]['ansible_' + hostvars[inventory_hostname]['consul_agent_network_iface']]['ipv4']['address'] }}{% else %}{{inventory_hostname}}{% endif %}"
+consul_agent_advertise_addr : "{% if consul_agent_use_ip %}{{ hostvars[inventory_hostname]['ansible_' + consul_agent_network_iface]['ipv4']['address'] }}{% else %}{{inventory_hostname}}{% endif %}"
 
 consul_agent_template : "{% if inventory_hostname in groups[consul_agent_server_group_name] %}server.json{% else %}client.json{% endif %}"
 
-consul_agent_retry_join: "{% for peer in groups[consul_agent_server_group_name] %}{% if consul_agent_use_ip %}{{hostvars[peer]['ansible_' + hostvars[peer]['consul_agent_network_iface']]['ipv4']['address'] | to_json}}{% else %}{{peer | to_json}}{% endif %}{% if not loop.last %},{% endif %}{% endfor %}"
+consul_agent_retry_join: "{% for peer in groups[consul_agent_server_group_name] %}{% if consul_agent_use_ip %}{{hostvars[peer]['ansible_' + consul_agent_network_iface]['ipv4']['address'] | to_json}}{% else %}{{peer | to_json}}{% endif %}{% if not loop.last %},{% endif %}{% endfor %}"
 
 consul_agent_pki_key_file : '{{inventory_hostname}}{{consul_agent_pki_key_suffix}}'
 consul_agent_pki_key_src: '{{consul_agent_pki_dir}}/{{consul_agent_pki_key_file}}'
