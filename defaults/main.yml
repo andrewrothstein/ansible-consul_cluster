@@ -1,5 +1,8 @@
 ---
+# Ansible group representing all hosts running either a consul server or agent
 consul_agent_group_name: consul
+
+# Ansible group representing all hosts participating in the consul raft consensus
 consul_agent_server_group_name: consul-agent-server
 
 consul_agent_etc_dir : /etc/consul/consul.d
