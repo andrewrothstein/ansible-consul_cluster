@@ -5,26 +5,26 @@ consul_agent_group_name: consul
 # Ansible group representing all hosts participating in the consul raft consensus
 consul_agent_server_group_name: consul-agent-server
 
-consul_agent_etc_dir : /etc/consul/consul.d
+consul_agent_etc_dir: /etc/consul/consul.d
 consul_agent_etc_pki_dir: /etc/consul/pki
-consul_agent_data_dir : /var/consul
+consul_agent_data_dir: /var/consul
 
-consul_agent_network_iface : default
+consul_agent_network_iface: default
 consul_agent_use_ip: False
-consul_agent_bind_addr : '0.0.0.0'
-consul_agent_dns_port : 8600
-consul_agent_http_port : 8500
-consul_agent_https_port : 8501
+consul_agent_bind_addr: '0.0.0.0'
+consul_agent_dns_port: 8600
+consul_agent_http_port: 8500
+consul_agent_https_port: 8501
 
 consul_agent_user: consul
 consul_agent_group: consul
 
-consul_agent_dc : dc1
+consul_agent_dc: dc1
 
-consul_agent_encrypt : 'EYRY+Ks0+i/DZrEicth1tQ=='
+consul_agent_encrypt: 'EYRY+Ks0+i/DZrEicth1tQ=='
 
-consul_agent_enable_syslog : True
-consul_agent_enable_ui : True
+consul_agent_enable_syslog: True
+consul_agent_enable_ui: True
 
 # example for hardcoding the upstream DNS resolvers
 #consul_agent_recursors:
