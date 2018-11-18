@@ -9,7 +9,7 @@ consul_agent_etc_dir : /etc/consul/consul.d
 consul_agent_etc_pki_dir: /etc/consul/pki
 consul_agent_data_dir : /var/consul
 
-consul_agent_network_iface : eth0
+consul_agent_network_iface : default
 consul_agent_use_ip: False
 consul_agent_bind_addr : '0.0.0.0'
 consul_agent_dns_port : 8600
