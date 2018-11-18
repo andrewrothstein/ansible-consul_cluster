@@ -5,7 +5,7 @@
   group:
     name: '{{ consul_agent_group }}'
     state: present
-  
+
 - name: create consul user
   become: yes
   become_user: root
@@ -14,7 +14,7 @@
     group: '{{ consul_agent_group }}'
     home: '{{ consul_agent_data_dir }}'
     state: present
-    
+
 - name: create directories
   become: yes
   become_user: root
