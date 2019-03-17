@@ -7,16 +7,17 @@
     - f: consul.service
       d: /etc/systemd/system
   template:
-    src: '{{item.f}}.j2'
-    dest: '{{item.d}}/{{item.f}}'
+    src: '{{ item.f }}.j2'
+    dest: '{{ item.d }}/{{ item.f }}'
     mode: 0644
 
 - name: systemctl daemon-reload
   become: yes
   become_user: root
   when: consul_agent_activate and consul_service_modified is changed
-  command: systemctl daemon-reload
-    
+  systemd:
+    daemon_reload: yes
+
 - name: launch consul service
   become: yes
   become_user: root
