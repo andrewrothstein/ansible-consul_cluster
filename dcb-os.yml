@@ -1,5 +1,4 @@
 - archlinux_latest
-- archlinux_latest
 - centos_7
 - debian_jessie
 - debian_stretch
@@ -10,5 +9,6 @@
 - fedora_27
 - fedora_28
 - fedora_29
+- fedora_30
 - ubuntu_bionic
 - ubuntu_xenial
