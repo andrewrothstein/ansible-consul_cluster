@@ -27,4 +27,4 @@ galaxy_info:
 
 dependencies:
   - role: andrewrothstein.consul
-    version: v4.0.18
+    version: v4.0.19
