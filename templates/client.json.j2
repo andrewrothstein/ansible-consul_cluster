@@ -1,25 +1,27 @@
 {
     "server" : false,
-    "advertise_addr" : {{consul_agent_advertise_addr | to_json}},
-    "data_dir" : {{consul_agent_data_dir | to_json}},
-    "client_addr" : {{consul_agent_bind_addr | to_json}},
-    "retry_join" : [{{consul_agent_retry_join}}],
-    "datacenter" : {{consul_agent_dc | to_json}},
-    "enable_syslog" : {{consul_agent_enable_syslog | to_json}},
-    "encrypt" : {{consul_agent_encrypt | to_json}},
+    "advertise_addr" : {{ consul_agent_advertise_addr | to_json }},
+    "data_dir" : {{ consul_agent_data_dir | to_json }},
+    "client_addr" : {{ consul_agent_bind_addr | to_json }},
+    "retry_join" : [{{ consul_agent_retry_join }}],
+    "datacenter" : {{ consul_agent_dc | to_json }},
+    "enable_syslog" : {{ consul_agent_enable_syslog | to_json }},
+    "encrypt" : {{ consul_agent_encrypt | to_json }},
     "ports" : {
-	"dns" : {{consul_agent_dns_port | to_json}},
-	"http" : {{consul_agent_http_port | to_json}}
-	{{consul_agent_https_config}}
+    	"dns" : {{ consul_agent_dns_port | to_json }},
+	    "http" : {{ consul_agent_http_port | to_json }}
+	    {{ consul_agent_https_config }}
     },
-   "ui" : {{consul_agent_enable_ui | to_json}}
+   "ui" : {{ consul_agent_enable_ui | to_json }}
 {% if consul_agent_recursors is defined %}
-   , "recursors" : {{consul_agent_recursors | to_json}}
+   , "recursors" : {{ consul_agent_recursors | to_json }}
 {% elif ansible_dns.nameservers is defined %}
-   , "recursors" : {{ansible_dns.nameservers | to_json}}
+   , "recursors" : {{ ansible_dns.nameservers | to_json }}
 {% endif %}
-{% if consul_agent_secure %}, {{consul_agent_secure_config}}{% endif %}
+{% if consul_agent_secure %}
+  , {{ consul_agent_secure_config }}
+{% endif %}
 {% if consul_agent_acl_master_token is defined %}
-   , "acl_master_token" : {{consul_agent_acl_master_token | to_json}}
+  , "acl_master_token" : {{ consul_agent_acl_master_token | to_json }}
 {% endif %}
 }

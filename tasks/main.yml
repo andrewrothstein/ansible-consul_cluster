@@ -34,24 +34,17 @@
 
 - name: install keys/certs
   when: consul_agent_secure
-  become: yes
-  become_user: root
-  with_items:
-    - f: '{{ consul_agent_pki_key_src }}'
-      d: '{{ consul_agent_pki_key_dest }}'
-      m: '0400'
-    - f: '{{ consul_agent_pki_cert_src }}'
-      d: '{{ consul_agent_pki_cert_dest }}'
-      m: '0600'
-    - f: '{{ consul_agent_pki_ca_cert_src }}'
-      d: '{{ consul_agent_pki_ca_cert_dest }}'
-      m: '0600'
-  copy:
-    src: '{{ item.f }}'
-    dest: '{{ item.d }}'
-    owner: '{{ consul_agent_user }}'
-    group: '{{ consul_agent_group }}'
-    mode: '{{ item.m }}'
+  include_role:
+    name: andrewrothstein.sshkey
+  vars:
+    sshkey_become: True
+    sshkey_pki_dir: '{{ consul_agent_pki_dir }}'
+    sshkey_target_perms:
+      owner: '{{ consul_agent_user }}'
+      group: '{{ consul_agent_group }}'
+    sshkey_target_dir: '{{ consul_agent_etc_pki_dir }}'
+    sshkey_override_target_cert: cert.pem
+    sshkey_override_target_key: key.pem
 
 - name: configure templates...
   become: yes

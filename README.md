@@ -5,7 +5,7 @@ andrewrothstein.consul-cluster
 Role for configuring a [Consul](https://www.consul.io/) cluster. Relies principally on the existence of two host groups.
 
 1. consul: all hosts that participate in the cluster whether server or client.
-2. consul-agent-server: all hosts that participate in the RAFT as servers.
+2. consul_servers: all hosts that participate in the RAFT as servers.
 
 Requirements
 ------------
@@ -32,7 +32,7 @@ host[1:10].test
 [consul]
 host[1:10].test
 
-[consul-agent-server]
+[consul_servers]
 host[1:7].test
 ```
 
