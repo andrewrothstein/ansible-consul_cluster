@@ -17,12 +17,3 @@
   when: consul_agent_activate and consul_service_modified is changed
   systemd:
     daemon_reload: yes
-
-- name: launch consul service
-  become: yes
-  become_user: root
-  when: consul_agent_activate
-  service:
-    name: consul
-    enabled: true
-    state: started

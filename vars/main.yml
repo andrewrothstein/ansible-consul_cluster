@@ -1,9 +1,11 @@
 ---
-consul_agent_advertise_addr: '{% if consul_agent_use_ip %}{% if consul_agent_network_iface == "default" %}{{ ansible_default_ipv4.address }}{% else %}{{ ansible_facts["ansible_" + consul_agent_network_iface]["ipv4"]["address"] }}{% endif %}{% else %}{{ inventory_hostname }}{% endif %}'
+consul_agent_advertise_addr: '{% if consul_agent_advertise_addr_config.ty == "inventory_hostname" %}{{ inventory_hostname }}{% elif consul_agent_advertise_addr_config.ty == "network_interface" %}{{ ansible_facts["ansible_" + consul_agent_advertise_addr_confg.interface][consul_agent_advertise_addr_config.ipver]["address"] }}{% endif %}'
+
+consul_agent_client_addr: '{% if consul_agent_client_addr_config.ty == "static" %}{{ consul_agent_client_addr_config.ip }}{% elsif consul_agent_client_addr_config.ty == "network_interface" %}{{ ansible_facts["ansible_" + consul_agent_client_addr_confg.interface][consul_agent_client_addr_config.ipver]["address"] }}{% endif %}'
 
 consul_agent_template: '{% if inventory_hostname in groups[consul_agent_server_group_name] %}server.json{% else %}client.json{% endif %}'
 
-consul_agent_retry_join: '{% for peer in groups[consul_agent_server_group_name] %}{% if consul_agent_use_ip %}{% if "consul_agent_network_iface" not in hostvars[peer] or hostvars[peer]["consul_network_ifce"] == "default" %}{{ hostvars[peer]["ansible_default_ipv4"]["address"] | to_json }}{% else %}{{ hostvars[peer]["ansible_" + hostvars[peer]["consul_agent_network_iface"]]["ipv4"]["address"] | to_json }}{% endif %}{% else %}{{ peer | to_json }}{% endif %}{% if not loop.last %},{% endif %}{% endfor %}'
+consul_agent_retry_join: '{% for peer in groups[consul_agent_server_group_name] %}{% if consul_agent_advertise_addr_config.ty == "inventory_hostname" %}{{ peer | to_json }}{% elif consul_agent_advertise_addr_config.ty == "network_interface" %}{{ hostvars[peer]["ansible_" + consul_agent_advertise_addr_config.interface][consul_agent_advertise_addr_config.ipver]["address"] | to_json }}{% endif %}{% if not loop.last %},{% endif %}{% endfor %}'
 
 consul_agent_https_config: '{% if consul_agent_secure %}, "https": {{ consul_agent_https_port }}{% endif %}'
 
@@ -18,3 +20,5 @@ consul_agent_secure_config: '{% if consul_agent_secure %}
 # how many servers constitute the cluster?
 # only start accepting writes when this many acknowledgements are achieved
 consul_agent_bootstrap_expect: '{{ (groups[consul_agent_server_group_name] | length / 2) | round(0, "ceil") }}'
+
+consul_agent_opts: 'agent -config-dir {{ consul_agent_etc_dir }}'

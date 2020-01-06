@@ -1,0 +1,17 @@
+---
+- name: templatize openrc service definitions...
+  become: yes
+  become_user: root
+  with_items:
+    - t: confd-consul
+      f: consul
+      d: /etc/conf.d
+      m: '0644'
+    - t: initd-consul
+      f: consul
+      d: /etc/init.d
+      m: '0755'
+  template:
+    src: '{{ item.t }}.j2'
+    dest: '{{ item.d }}/{{ item.f }}'
+    mode: '{{ item.m }}'

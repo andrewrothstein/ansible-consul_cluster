@@ -5,13 +5,31 @@ consul_agent_group_name: consul
 # Ansible group representing all hosts participating in the consul raft consensus
 consul_agent_server_group_name: consul_servers
 
+consul_agent_bin: /usr/local/bin/consul
+
 consul_agent_etc_dir: /etc/consul/consul.d
 consul_agent_etc_pki_dir: /etc/consul/pki
+
 consul_agent_data_dir: /var/consul
 
-consul_agent_network_iface: default
-consul_agent_use_ip: False
-consul_agent_bind_addr: '0.0.0.0'
+consul_agent_advertise_addr_config:
+  ty: inventory_hostname
+
+# alternative to use the IP of a network interface
+#consul_agent_advertise_addr_config:
+#  ty: network_interface
+#  interface: eth1
+#  ipver: ipv4
+
+consul_agent_client_addr_config:
+  ty: static
+  ip: '127.0.0.1'
+
+# alternative to use the IP of a network interface
+#consul_agent_client_addr_config:
+#  ty: network_interface
+#  interface: eth1
+
 consul_agent_dns_port: 8600
 consul_agent_http_port: 8500
 consul_agent_https_port: 8501
@@ -31,7 +49,6 @@ consul_agent_enable_ui: True
 #  - xxx.yyy.zzz.aaa
 #  - bbb.ccc.ddd.eee
 
-consul_agent_init: systemd
 consul_agent_activate: True
 
 consul_agent_secure: True
