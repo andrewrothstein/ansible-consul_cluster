@@ -1,7 +1,7 @@
 ---
-consul_agent_advertise_addr: '{% if consul_agent_advertise_addr_config.ty == "inventory_hostname" %}{{ inventory_hostname }}{% elif consul_agent_advertise_addr_config.ty == "network_interface" %}{{ ansible_facts["ansible_" + consul_agent_advertise_addr_confg.interface][consul_agent_advertise_addr_config.ipver]["address"] }}{% endif %}'
+consul_agent_advertise_addr: '{% if consul_agent_advertise_addr_config.ty == "inventory_hostname" %}{{ inventory_hostname }}{% elif consul_agent_advertise_addr_config.ty == "network_interface" %}{{ hostvars[inventory_hostname]["ansible_" + consul_agent_advertise_addr_config.interface][consul_agent_advertise_addr_config.ipver]["address"] }}{% endif %}'
 
-consul_agent_client_addr: '{% if consul_agent_client_addr_config.ty == "static" %}{{ consul_agent_client_addr_config.ip }}{% elsif consul_agent_client_addr_config.ty == "network_interface" %}{{ ansible_facts["ansible_" + consul_agent_client_addr_confg.interface][consul_agent_client_addr_config.ipver]["address"] }}{% endif %}'
+consul_agent_client_addr: '{% if consul_agent_client_addr_config.ty == "static" %}{{ consul_agent_client_addr_config.ip }}{% elif consul_agent_client_addr_config.ty == "network_interface" %}{{ hostvars[inventory_hostname]["ansible_" + consul_agent_client_addr_config.interface][consul_agent_client_addr_config.ipver]["address"] }}{% endif %}'
 
 consul_agent_template: '{% if inventory_hostname in groups[consul_agent_server_group_name] %}server.json{% else %}client.json{% endif %}'
 

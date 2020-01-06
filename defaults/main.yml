@@ -29,6 +29,7 @@ consul_agent_client_addr_config:
 #consul_agent_client_addr_config:
 #  ty: network_interface
 #  interface: eth1
+#  ipver: ipv4
 
 consul_agent_dns_port: 8600
 consul_agent_http_port: 8500
