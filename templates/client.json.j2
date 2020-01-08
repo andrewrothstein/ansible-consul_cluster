@@ -1,6 +1,7 @@
 {
     "server" : false,
     "advertise_addr" : {{ consul_agent_advertise_addr | to_json }},
+    "bind_addr" : {{ consul_agent_bind_addr | to_json }},
     "data_dir" : {{ consul_agent_data_dir | to_json }},
     "client_addr" : {{ consul_agent_client_addr | to_json }},
     "retry_join" : [{{ consul_agent_retry_join }}],

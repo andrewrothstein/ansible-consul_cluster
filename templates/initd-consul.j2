@@ -27,7 +27,7 @@ depend() {
 
 checkconfig() {
 	ebegin "Checking {{ consul_agent_etc_dir }}"
-	{{ consul_agent_bin }} validate {{ consul_agent_etc_dir }}
+	$command validate {{ consul_agent_etc_dir }}
 	eend $?
 }
 
@@ -37,7 +37,7 @@ start_pre() {
 }
 
 healthcheck() {
-	$command info > /dev/null 2>&1
+	$command info -http-addr=http://{{ consul_agent_client_addr }}:{{ consul_agent_http_port }} > /dev/null 2>&1
 }
 
 reload() {

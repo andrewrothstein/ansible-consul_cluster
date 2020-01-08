@@ -12,8 +12,19 @@ consul_agent_etc_pki_dir: /etc/consul/pki
 
 consul_agent_data_dir: /var/consul
 
+consul_agent_bind_addr_config:
+  ty: static
+  ip: '127.0.0.1'
+
+# alternative to use the IP of a network interface
+#consul_agent_bin_addr_config:
+#  ty: network_interface
+#  interface: eth1
+#  ipver: ipv4
+
 consul_agent_advertise_addr_config:
-  ty: inventory_hostname
+  ty: static
+  ip: '127.0.0.1'
 
 # alternative to use the IP of a network interface
 #consul_agent_advertise_addr_config:
