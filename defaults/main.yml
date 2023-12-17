@@ -17,30 +17,30 @@ consul_agent_bind_addr_config:
   ip: '127.0.0.1'
 
 # alternative to use the IP of a network interface
-#consul_agent_bin_addr_config:
-#  ty: network_interface
-#  interface: eth1
-#  ipver: ipv4
+# consul_agent_bin_addr_config:
+#   ty: network_interface
+#   interface: eth1
+#   ipver: ipv4
 
 consul_agent_advertise_addr_config:
   ty: static
   ip: '127.0.0.1'
 
 # alternative to use the IP of a network interface
-#consul_agent_advertise_addr_config:
-#  ty: network_interface
-#  interface: eth1
-#  ipver: ipv4
+# consul_agent_advertise_addr_config:
+#   ty: network_interface
+#   interface: eth1
+#   ipver: ipv4
 
 consul_agent_client_addr_config:
   ty: static
   ip: '127.0.0.1'
 
 # alternative to use the IP of a network interface
-#consul_agent_client_addr_config:
-#  ty: network_interface
-#  interface: eth1
-#  ipver: ipv4
+# consul_agent_client_addr_config:
+#   ty: network_interface
+#   interface: eth1
+#   ipver: ipv4
 
 consul_agent_dns_port: 8600
 consul_agent_http_port: 8500
@@ -53,17 +53,17 @@ consul_agent_dc: dc1
 
 consul_agent_encrypt: 'EYRY+Ks0+i/DZrEicth1tQ=='
 
-consul_agent_enable_syslog: True
-consul_agent_enable_ui: True
+consul_agent_enable_syslog: true
+consul_agent_enable_ui: true
 
 # example for hardcoding the upstream DNS resolvers
-#consul_agent_recursors:
-#  - xxx.yyy.zzz.aaa
-#  - bbb.ccc.ddd.eee
+# consul_agent_recursors:
+#   - xxx.yyy.zzz.aaa
+#   - bbb.ccc.ddd.eee
 
-consul_agent_activate: True
+consul_agent_activate: true
 
-consul_agent_secure: True
+consul_agent_secure: true
 consul_agent_pki_dir: ~/pki-dir
 
 consul_agent_acl_default_policy: allow

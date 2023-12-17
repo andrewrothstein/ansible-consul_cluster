@@ -50,7 +50,7 @@
   ansible.builtin.include_role:
     name: andrewrothstein.sshkey
   vars:
-    sshkey_become: True
+    sshkey_become: true
     sshkey_pki_dir: '{{ consul_agent_pki_dir }}'
     sshkey_target_perms:
       owner: '{{ consul_agent_user }}'
@@ -68,6 +68,8 @@
     owner: '{{ consul_agent_user }}'
     group: '{{ consul_agent_group }}'
     mode: 0644
+  notify:
+    - consul_service_restart
 
 - ansible.builtin.include_tasks: '{{ consul_agent_init | default("systemd") }}.yml'
 

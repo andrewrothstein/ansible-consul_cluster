@@ -1,26 +1,45 @@
 ---
-consul_agent_advertise_addr: '{% if consul_agent_advertise_addr_config.ty == "static" %}{{ consul_agent_advertise_addr_config.ip }}{% elif consul_agent_advertise_addr_config.ty == "network_interface" %}{{ hostvars[inventory_hostname]["ansible_" + consul_agent_advertise_addr_config.interface][consul_agent_advertise_addr_config.ipver]["address"] }}{% endif %}'
+consul_agent_advertise_addr: |-
+  {%- if consul_agent_advertise_addr_config.ty == "static" -%}
+  {{- consul_agent_advertise_addr_config.ip -}}
+  {%- elif consul_agent_advertise_addr_config.ty == "network_interface" -%}
+  {{- hostvars[inventory_hostname]["ansible_" ~ consul_agent_advertise_addr_config.interface][consul_agent_advertise_addr_config.ipver]["address"] -}}
+  {%- endif -%}
 
-consul_agent_bind_addr: '{% if consul_agent_bind_addr_config.ty == "static" %}{{ consul_agent_bind_addr_config.ip }}{% elif consul_agent_bind_addr_config.ty == "network_interface" %}{{ hostvars[inventory_hostname]["ansible_" + consul_agent_bind_addr_config.interface][consul_agent_bind_addr_config.ipver]["address"] }}{% endif %}'
+consul_agent_bind_addr: |-
+  {%- if consul_agent_bind_addr_config.ty == "static" -%}
+  {{- consul_agent_bind_addr_config.ip -}}
+  {%- elif consul_agent_bind_addr_config.ty == "network_interface" -%}
+  {{- hostvars[inventory_hostname]["ansible_" ~ consul_agent_bind_addr_config.interface][consul_agent_bind_addr_config.ipver]["address"] -}}
+  {%- endif -%}
 
-consul_agent_client_addr: '{% if consul_agent_client_addr_config.ty == "static" %}{{ consul_agent_client_addr_config.ip }}{% elif consul_agent_client_addr_config.ty == "network_interface" %}{{ hostvars[inventory_hostname]["ansible_" + consul_agent_client_addr_config.interface][consul_agent_client_addr_config.ipver]["address"] }}{% endif %}'
+consul_agent_client_addr: |-
+  {%- if consul_agent_client_addr_config.ty == "static" -%}
+  {{- consul_agent_client_addr_config.ip -}}
+  {%- elif consul_agent_client_addr_config.ty == "network_interface" -%}
+  {{- hostvars[inventory_hostname]["ansible_" ~ consul_agent_client_addr_config.interface][consul_agent_client_addr_config.ipver]["address"] -}}
+  {%- endif -%}
 
-consul_agent_template: '{% if inventory_hostname in groups[consul_agent_server_group_name] %}server.json{% else %}client.json{% endif %}'
+consul_agent_template: |-
+  {%- if inventory_hostname in groups[consul_agent_server_group_name] -%}
+  server.json
+  {%- else -%}
+  client.json
+  {%- endif -%}
 
-consul_agent_retry_join: '{% for peer in groups[consul_agent_server_group_name] %}{% if consul_agent_advertise_addr_config.ty == "static" %}{{ hostvars[peer]["consul_advertise_addr_config"]["ip"] | to_json }}{% elif consul_agent_advertise_addr_config.ty == "network_interface" %}{{ hostvars[peer]["ansible_" + consul_agent_advertise_addr_config.interface][consul_agent_advertise_addr_config.ipver]["address"] | to_json }}{% endif %}{% if not loop.last %},{% endif %}{% endfor %}'
-
-consul_agent_https_config: '{% if consul_agent_secure %}, "https": {{ consul_agent_https_port }}{% endif %}'
-
-consul_agent_secure_config: '{% if consul_agent_secure %}
-  "ca_file": "{{ consul_agent_etc_pki_dir }}/ca.pem",
-  "cert_file": "{{ consul_agent_etc_pki_dir }}/cert.pem",
-  "key_file": "{{ consul_agent_etc_pki_dir }}/key.pem",
-  "verify_incoming": true,
-  "verify_outgoing": true
-{% endif %}'
+consul_agent_retry_join: |-
+  {%- for peer in groups[consul_agent_server_group_name] -%}
+    {%- if consul_agent_advertise_addr_config.ty == "static" -%}
+    {{- hostvars[peer]["consul_advertise_addr_config"]["ip"] | to_json -}}
+    {%- elif consul_agent_advertise_addr_config.ty == "network_interface" -%}
+    {{- hostvars[peer]["ansible_" ~ consul_agent_advertise_addr_config.interface][consul_agent_advertise_addr_config.ipver]["address"] | to_json -}}
+    {%- endif -%}
+    {%- if not loop.last -%},{%- endif -%}
+  {%- endfor -%}
 
 # how many servers constitute the cluster?
 # only start accepting writes when this many acknowledgements are achieved
-consul_agent_bootstrap_expect: '{{ (groups[consul_agent_server_group_name] | length / 2) | round(0, "ceil") }}'
+consul_agent_bootstrap_expect: |-
+  {{- (groups[consul_agent_server_group_name] | length / 2) | round(0, "ceil") -}}
 
-consul_agent_opts: 'agent -config-dir {{ consul_agent_etc_dir }}'
+consul_agent_opts: agent -config-dir {{ consul_agent_etc_dir }}

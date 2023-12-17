@@ -1,2 +1,15 @@
 ---
 # handlers file for consul_cluster
+- name: systemd_service_daemon_reload
+  become: true
+  become_user: root
+  when: consul_agent_activate
+  ansible.builtin.systemd:
+    daemon_reload: true
+- name: consul_service_restart
+  become: true
+  become_user: root
+  when: consul_agent_activate
+  ansible.builtin.service:
+    name: consul
+    state: restarted

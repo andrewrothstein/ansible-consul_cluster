@@ -1,5 +1,5 @@
 ---
-- name: templatize openrc service definitions...
+- name: Templatize openrc service definitions...
   become: true
   become_user: root
   with_items:
@@ -11,7 +11,9 @@
       f: consul
       d: /etc/init.d
       m: '755'
-  template:
+  ansible.builtin.template:
     src: '{{ item.t }}.j2'
     dest: '{{ item.d }}/{{ item.f }}'
     mode: '{{ item.m }}'
+  notify:
+    - consul_service_restart
