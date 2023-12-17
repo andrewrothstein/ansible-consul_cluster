@@ -1,6 +1,6 @@
 ---
 - name: Install consul
-  ansible.builtin.install_role:
+  ansible.builtin.include_role:
     name: andrewrothstein.consul
 - name: resolve platform specific vars
   include_vars: '{{ item }}'
