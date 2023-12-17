@@ -1,6 +1,6 @@
-andrewrothstein.consul-cluster
+andrewrothstein.consul_cluster
 ==============================
-[![Build Status](https://travis-ci.org/andrewrothstein/ansible-consul-cluster.svg?branch=master)](https://travis-ci.org/andrewrothstein/ansible-consul-cluster)
+![Build Status](https://github.com/andrewrothstein/ansible-consul_cluster/actions/workflows/build.yml/badge.svg)
 
 Role for configuring a [Consul](https://www.consul.io/) cluster. Relies principally on the existence of two host groups.
 
@@ -40,7 +40,7 @@ playbook.yml
 ```yml
 - hosts: consul
   roles:
-    - andrewrothstein.consul-cluster
+    - andrewrothstein.consul_cluster
 ```
 
 License

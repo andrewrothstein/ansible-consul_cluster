@@ -3,28 +3,27 @@ galaxy_info:
   author: Andrew Rothstein
   description: role to configure a consul cluster
   company: BlackRock
-  license:
-    - MIT
+  license: MIT
   min_ansible_version: 1.2
   platforms:
-    - name: EL
-      versions:
-        - all
-    - name: Fedora
-      versions:
-        - all
-    - name: Ubuntu
-      versions:
-        - xenial
     - name: Debian
       versions:
-        - jessie
-        - stretch
+        - bookworm
+        - bullseye
+    - name: EL
+      versions:
+        - 8
+        - 9
+    - name: Fedora
+      versions:
+        - 38
+        - 39
+    - name: Ubuntu
+      versions:
+        - focal
+        - jammy
   galaxy_tags:
     - consul
     - hashicorp
     - keyvalue
-
-dependencies:
-  - role: andrewrothstein.consul
-    version: v4.0.24
+  role_name: consul_cluster

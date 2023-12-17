@@ -1,19 +1,19 @@
 ---
 - name: install systemd service
-  become: yes
+  become: true
   become_user: root
   register: consul_service_modified
   with_items:
     - f: consul.service
       d: /etc/systemd/system
-  template:
+  ansible.builtin.template:
     src: '{{ item.f }}.j2'
     dest: '{{ item.d }}/{{ item.f }}'
     mode: 0644
 
 - name: systemctl daemon-reload
-  become: yes
+  become: true
   become_user: root
   when: consul_agent_activate and consul_service_modified is changed
-  systemd:
-    daemon_reload: yes
+  ansible.builtin.systemd:
+    daemon_reload: true

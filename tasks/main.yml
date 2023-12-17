@@ -1,4 +1,7 @@
 ---
+- name: Install consul
+  ansible.builtin.install_role:
+    name: andrewrothstein.consul
 - name: resolve platform specific vars
   include_vars: '{{ item }}'
   with_first_found:
@@ -10,32 +13,32 @@
       paths:
         - '{{ role_path }}/vars'
 - name: create consul group
-  become: yes
+  become: true
   become_user: root
-  group:
+  ansible.builtin.group:
     name: '{{ consul_agent_group }}'
     state: present
 
 - name: create consul user
-  become: yes
+  become: true
   become_user: root
-  user:
+  ansible.builtin.user:
     name: '{{ consul_agent_user }}'
     group: '{{ consul_agent_group }}'
     home: '{{ consul_agent_data_dir }}'
     state: present
 
 - name: create directories
-  become: yes
+  become: true
   become_user: root
   with_items:
     - d: '{{ consul_agent_etc_dir }}'
-      m: '0755'
+      m: '755'
     - d: '{{ consul_agent_data_dir }}'
-      m: '0755'
+      m: '755'
     - d: '{{ consul_agent_etc_pki_dir }}'
-      m: '0700'
-  file:
+      m: '700'
+  ansible.builtin.file:
     path: '{{ item.d }}'
     state: directory
     owner: '{{ consul_agent_user }}'
@@ -44,7 +47,7 @@
 
 - name: install keys/certs
   when: consul_agent_secure
-  include_role:
+  ansible.builtin.include_role:
     name: andrewrothstein.sshkey
   vars:
     sshkey_become: True
@@ -57,22 +60,22 @@
     sshkey_override_target_key: key.pem
 
 - name: configure templates...
-  become: yes
+  become: true
   become_user: root
-  template:
+  ansible.builtin.template:
     src: '{{ consul_agent_template }}.j2'
     dest: '{{ consul_agent_etc_dir }}/consul.json'
     owner: '{{ consul_agent_user }}'
     group: '{{ consul_agent_group }}'
     mode: 0644
 
-- include_tasks: '{{ consul_agent_init | default("systemd") }}.yml'
+- ansible.builtin.include_tasks: '{{ consul_agent_init | default("systemd") }}.yml'
 
 - name: launch consul service
-  become: yes
+  become: true
   become_user: root
   when: consul_agent_activate
-  service:
+  ansible.builtin.service:
     name: consul
     enabled: true
     state: started
